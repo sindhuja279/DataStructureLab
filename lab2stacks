@@ -1,0 +1,58 @@
+#include<stdio.h>
+#include<stdlib.h>
+#define N 5
+int stack[N];
+int top=-1;
+void push(){
+if (top==N){
+    printf("Stack Overflow");
+}
+else{
+    int x;
+    printf("Enter the element to be inserted");
+    scanf("%d",&x);
+    top++;
+    stack[top]=x;
+}
+}
+void pop(){
+    if(top==-1){
+        printf("Stack underflow");
+    }
+    else{
+        int y;
+        y=stack[top];
+        top--;
+        printf("The element deleted id %d",y);
+    }
+}
+void display(){
+    if(top==-1){
+       printf("Stack is empty");}
+        else{
+    int i;
+printf("The elements in the stack are:");
+for(i=N;i>=0;i--){
+    printf("%d",stack[i]);}
+}
+}
+void main(){
+     while(1){
+    int choice;
+    printf("Enter your choice:\n1.Push\n2.Pop\n3.Display\n4.Exit");
+    scanf("%d",&choice);
+
+    switch(choice){
+    case 1:push();
+    break;
+    case 2: pop();
+    break;
+    case 3: display();
+    break;
+    case 4: exit(1) ;
+    break;
+    default : printf("Invalid input");
+    break;
+    }
+     }
+    }
