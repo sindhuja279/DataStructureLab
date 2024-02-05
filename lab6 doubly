@@ -1,0 +1,81 @@
+#include<stdio.h>
+#include<stdlib.h>
+
+struct node{
+    struct node*prev;
+    int data;
+    struct node*next;
+};
+
+void traversal(struct node**head_ref){
+    struct node*ptr=*head_ref;
+    if(*head_ref==NULL){
+        printf("Empty List\n");
+        return;
+    }
+    else{
+        while(ptr!=NULL){
+            printf("%d <->",ptr->data);
+            ptr=ptr->next;
+        }
+    }
+    printf("\n");
+};
+
+void insertAtBeginning(struct node**head_ref,int value){
+    struct node* newNode=(struct node*)malloc(sizeof(struct node));
+    struct node*ptr=*head_ref;
+    if(*head_ref==NULL){
+        newNode->prev=NULL;
+        newNode->data=value;
+        newNode->next=NULL;
+        *head_ref=newNode;
+    }
+    else{
+        newNode->prev=NULL;
+        newNode->data=value;
+        newNode->next=*head_ref;
+        ptr->prev=newNode;
+        *head_ref=newNode;
+    }
+    printf("Node inserted at front\n");
+    return;
+};
+void deleteNode(struct node **head_ref, int data) {
+    if (*head_ref == NULL) {
+        printf("List is empty\n");
+        return;
+    }
+
+    struct node *node = *head_ref;
+    while (node != NULL && node->data != data) {
+        node = node->next;
+    }
+
+    if (node == NULL) {
+        printf("Node with value %d not found\n", data);
+        return;
+    }
+
+    if (node->prev != NULL) {
+        node->prev->next = node->next;
+    } else {
+        *head_ref = node->next;
+    }
+
+    if (node->next != NULL) {
+        node->next->prev = node->prev;
+    }
+    printf("Node deleted \n");
+    free(node);
+}
+void main(){
+    struct node*head=NULL;
+    traversal(&head);
+    insertAtBeginning(&head,100);
+    insertAtBeginning(&head,22);
+    insertAtBeginning(&head,98);
+    traversal(&head);
+    deleteNode(&head,22);
+    traversal(&head);
+}
