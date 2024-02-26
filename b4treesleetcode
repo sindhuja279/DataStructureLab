@@ -1,0 +1,26 @@
+int countNodes(struct TreeNode* root) {
+    if (root == NULL) {
+        return 0;
+    }
+    if (root->left == NULL && root->right == NULL) {
+        return 1;
+    }
+
+    int hLeft = 0, hRight = 0;
+    struct TreeNode* currLeft = root->left;
+    struct TreeNode* currRight = root->right;
+    while (currLeft != NULL) {
+        hLeft++;
+        currLeft = currLeft->left;
+    }
+    while (currRight != NULL) {
+        hRight++;
+        currRight = currRight->right;
+    }
+
+    if (hLeft == hRight) {
+        return (1 << (hLeft + 1)) - 1;
+    } else {
+        return (1 << (hLeft + 1)) - 1 + countNodes(root->left) - (1 << hLeft);
+    }
+}
